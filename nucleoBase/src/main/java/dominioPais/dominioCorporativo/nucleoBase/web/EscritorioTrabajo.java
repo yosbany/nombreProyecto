@@ -1,9 +1,6 @@
-package dominioPais.dominioCorporativo.nucleoBase.controladores;
+package dominioPais.dominioCorporativo.nucleoBase.web;
 
-/**
- * @author yhernandezdiaz
- * @author Jose Ernesto Lara Rodr&iacute;guez &lt;jelara@estudiantes.uci.cu&gt;
- */
+
 public interface EscritorioTrabajo /* extends EventDispatcher */ {
 	public static final String BEAN_ID = "escritorioManejado";
 

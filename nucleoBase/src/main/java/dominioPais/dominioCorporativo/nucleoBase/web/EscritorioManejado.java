@@ -1,4 +1,4 @@
-package dominioPais.dominioCorporativo.nucleoBase.controladores;
+package dominioPais.dominioCorporativo.nucleoBase.web;
 
 import java.io.Serializable;
 
