@@ -3,4 +3,13 @@
   <groupId>dominioPais.dominioCorporativo.nombreProyecto</groupId>
   <artifactId>nombreModulo1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>
+  			dominioPais.dominioCorporativo.nombreProyecto
+  		</groupId>
+  		<artifactId>comunNombreProyecto</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

@@ -3,10 +3,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Inicio</title>
+<title>Error</title>
 </head>
 <body>
-	<a href="nombreCasoUso/nombreOperacionList.do">Listar</a>
-	<a href="nombreCasoUso/nombreOperacionInsertAndEdit.do">Insertar</a>
+
 </body>
 </html>

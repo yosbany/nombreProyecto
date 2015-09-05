@@ -1,4 +1,4 @@
-package dominioPais.dominoCorporativo.nombreProyecto.comunNombreProyecto.fachada;
+package dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.fachada;
 
 public class ComunNombreProyectoFacadeImpl implements IComunNombreProyectoFacade {
 
