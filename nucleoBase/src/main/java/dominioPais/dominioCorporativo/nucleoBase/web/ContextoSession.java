@@ -11,7 +11,7 @@ import java.io.Serializable;
 // @Component ("escritorioManejado")
 // @Scope ("session")
 // @Lazy
-public class EscritorioManejado extends ControladorBase implements EscritorioTrabajo, Serializable {
+public class ContextoSession extends ControladorBase implements IContextoSession, Serializable {
 
 	private static final long serialVersionUID = 1334287978743760751L;
 

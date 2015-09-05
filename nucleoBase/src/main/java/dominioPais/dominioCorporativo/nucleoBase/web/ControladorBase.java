@@ -4,15 +4,15 @@ import java.util.Map;
 
 public class ControladorBase {
 
-	private EscritorioTrabajo escritorio;
+	private IContextoSession escritorio;
 
 	private Map<String, Object> attributes;
 
-	public EscritorioTrabajo getEscritorio() {
+	public IContextoSession getEscritorio() {
 		return escritorio;
 	}
 
-	public void setEscritorio(EscritorioTrabajo escritorio) {
+	public void setEscritorio(IContextoSession escritorio) {
 		this.escritorio = escritorio;
 	}
 

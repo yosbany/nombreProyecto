@@ -1,7 +1,7 @@
 package dominioPais.dominioCorporativo.nucleoBase.web;
 
 
-public interface EscritorioTrabajo {
+public interface IContextoSession {
 	
 
 }
