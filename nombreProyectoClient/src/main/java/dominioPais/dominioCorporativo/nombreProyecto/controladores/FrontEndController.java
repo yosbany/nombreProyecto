@@ -10,13 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @Scope("session")
 @Lazy
-@RequestMapping(value="/")
+@RequestMapping(value = "/")
 public class FrontEndController {
-	
-	@RequestMapping(method = RequestMethod.GET, value="/inicio.do")
-	public ModelAndView inicio(){
+
+	@RequestMapping(method = RequestMethod.GET, value = "/inicio.do")
+	public ModelAndView inicio() {
 		return new ModelAndView("comun/inicio");
-		
+
 	}
 
 }
