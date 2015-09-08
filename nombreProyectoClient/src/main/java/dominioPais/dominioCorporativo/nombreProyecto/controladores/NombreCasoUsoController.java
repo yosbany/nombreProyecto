@@ -1,55 +1,82 @@
 package dominioPais.dominioCorporativo.nombreProyecto.controladores;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.dominio.ObjetoEntidad;
+import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.fachada.IComunNombreProyectoFacade;
+import dominioPais.dominioCorporativo.nombreProyecto.controladores.modelos.NombreFormularioForm;
+import dominioPais.dominioCorporativo.nombreProyecto.validadores.NombreFormularioValidator;
 import dominioPais.dominioCorporativo.nucleoBase.web.ControladorBase;
 
 @Controller
-@Scope("session")
 @Lazy
-@RequestMapping(value = "/NombreCasoUso/*")
+@RequestMapping(value = "/nombreCasoUso/")
 public class NombreCasoUsoController extends ControladorBase {
-	/*
-	 * //Inyectamos del contecto tantos facade como se necesite
-	 * 
-	 * @Autowired private IFacade facade;
-	 * 
-	 * //Enlasamos el validador del formulario si el controlador lo requiere
-	 * 
-	 * @InitBinder protected void initBinder(WebDataBinder binder) {
-	 * binder.setValidator(new NombreFormularioValidator()); }
-	 * 
-	 * @RequestMapping(method = RequestMethod.POST value =
-	 * 'nombreOperacionInsertAndEdit.do') public ModelAndView
-	 * nombreOperacionInsertAndEdit(@Validated NombreFormularioForm
-	 * nombreFormularioForm, BindingResult result){ if(result.hasErrors()){
-	 * return new ModelAndView('retorno la misma página del formulario'); }
-	 * 
-	 * ObjetoEntidad objetoEntidad = new ObjetoEntidad();
-	 * objetoEntidad.setCampo(nombreFormularioForm.getCampo()); //Llamo a la
-	 * fachada tantas veces se requiera; this.facade.metodo(objetoEntidad);
-	 * 
-	 * return new ModelAndView('voy a la siguiente página'); }
-	 * 
-	 * @RequestMapping(method = RequestMethod.GET value =
-	 * 'nombreOperacionList.do') protected AlumnoForm nombreOperacionList()
-	 * throws ServletException { return new NombreFormularioForm();
-	 * 
-	 * }
-	 * 
-	 * 
-	 * @RequestMapping(method = RequestMethod.GET value =
-	 * 'nombreOperacionDetails.do') protected AlumnoForm
-	 * nombreOperacionDetails() throws ServletException { return new
-	 * NombreFormularioForm();
-	 * 
-	 * }
-	 * 
-	 * @ExceptionHandler(Exception.class) public ModelAndView
-	 * Exception(Exception e , HttpServletRequest request){ //Redirecciona a la
-	 * página de error return new ModelAndView("pagina de error"); }
-	 */
+
+	private static final long serialVersionUID = 4941044112653244432L;
+
+	@Autowired
+	private IComunNombreProyectoFacade comunNombreProyectoFacade;
+
+	public IComunNombreProyectoFacade getComunNombreProyectoFacade() {
+		return comunNombreProyectoFacade;
+	}
+
+	public void setComunNombreProyectoFacade(IComunNombreProyectoFacade comunNombreProyectoFacade) {
+		this.comunNombreProyectoFacade = comunNombreProyectoFacade;
+	}
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new NombreFormularioValidator());
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "nombreOperacionInsertAndEdit.do")
+	public ModelAndView nombreOperacionInsertAndEdit(@Validated NombreFormularioForm nombreFormularioForm,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return new ModelAndView("comun/inicio");
+		}
+
+		ObjetoEntidad objetoEntidad = new ObjetoEntidad();
+		objetoEntidad.setCampo1(nombreFormularioForm.getCampo1());
+
+		return new ModelAndView("comun/inicio");
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "nombreOperacionList.do")
+	protected ModelAndView nombreOperacionList() throws ServletException {
+		List<String> list = this.getComunNombreProyectoFacade().listar();
+
+		return new ModelAndView("comun/inicio", "modelo", list);
+
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "nombreOperacionDetails.do")
+	protected ModelAndView nombreOperacionDetails() throws ServletException {
+		return new ModelAndView("comun/inicio");
+
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ModelAndView Exception(Exception e, HttpServletRequest request) {
+		return new ModelAndView("comun/inicio");
+	}
+
 }

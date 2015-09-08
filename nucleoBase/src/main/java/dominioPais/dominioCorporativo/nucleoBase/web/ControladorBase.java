@@ -1,19 +1,25 @@
 package dominioPais.dominioCorporativo.nucleoBase.web;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class ControladorBase {
+import org.springframework.beans.factory.annotation.Autowired;
 
-	private IContextoSession escritorio;
+public class ControladorBase implements Serializable {
 
-	private Map<String, Object> attributes;
+	private static final long serialVersionUID = 2524446270951076886L;
 
-	public IContextoSession getEscritorio() {
-		return escritorio;
+	@Autowired
+	private IContextoSession session;
+
+	private Map<String, Object> attributes;	
+
+	public IContextoSession getSession() {
+		return session;
 	}
 
-	public void setEscritorio(IContextoSession escritorio) {
-		this.escritorio = escritorio;
+	public void setSession(IContextoSession session) {
+		this.session = session;
 	}
 
 	public Map<String, Object> getAttributes() {
