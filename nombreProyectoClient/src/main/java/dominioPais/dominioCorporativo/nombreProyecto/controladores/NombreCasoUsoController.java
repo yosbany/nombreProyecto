@@ -22,7 +22,11 @@ import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.fachada
 import dominioPais.dominioCorporativo.nombreProyecto.controladores.modelos.NombreFormularioForm;
 import dominioPais.dominioCorporativo.nombreProyecto.validadores.NombreFormularioValidator;
 import dominioPais.dominioCorporativo.nucleoBase.web.ControladorBase;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 @Controller
 @Lazy
 @RequestMapping(value = "/nombreCasoUso/")

@@ -3,7 +3,11 @@ package dominioPais.dominioCorporativo.nucleoBase.dominio;
 import java.io.Serializable;
 
 import dominioPais.dominioCorporativo.nucleoBase.excepciones.BaseException;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public abstract class EntidadPersistenteBase implements Serializable {
 
 	private static final long serialVersionUID = 2789426236961245241L;

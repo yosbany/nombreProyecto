@@ -4,7 +4,11 @@ import java.util.Collection;
 
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public final class Opcion {
 
 	public final static Integer SIN_FILTRO = 1;

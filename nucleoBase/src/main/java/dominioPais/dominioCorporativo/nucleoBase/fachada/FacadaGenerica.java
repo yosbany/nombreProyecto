@@ -11,7 +11,11 @@ import dominioPais.dominioCorporativo.nucleoBase.excepciones.DataBaseException;
 import dominioPais.dominioCorporativo.nucleoBase.hibernate.IDaoGenerico;
 import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.HibernateUtils;
 import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.Opcion;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 @Service
 public class FacadaGenerica implements IFacadaGenerica {
 

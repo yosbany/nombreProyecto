@@ -5,7 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dominioPais.dominioCorporativo.nucleoBase.web.ControladorBase;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 @RestController
 @Lazy
 @RequestMapping(value = "/rest/nombreCasoUsoRest/")

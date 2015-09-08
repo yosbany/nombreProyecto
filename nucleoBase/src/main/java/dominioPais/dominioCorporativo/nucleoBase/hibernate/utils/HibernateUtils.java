@@ -25,7 +25,11 @@ import org.hibernate.type.Type;
 
 import dominioPais.dominioCorporativo.nucleoBase.dominio.EntidadPersistenteBase;
 import dominioPais.dominioCorporativo.nucleoBase.excepciones.DataBaseException;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public class HibernateUtils {
 
 	/**

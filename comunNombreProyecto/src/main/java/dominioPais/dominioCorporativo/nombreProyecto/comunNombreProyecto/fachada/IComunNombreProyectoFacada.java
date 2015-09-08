@@ -3,7 +3,9 @@ package dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.fachad
 import dominioPais.dominioCorporativo.nucleoBase.fachada.IFacadaGenerica;
 
 /**
- * Interface IComunNombreProyectoFacade.
+ * 
+ * @author Yosbany Tejas
+ *
  */
 public interface IComunNombreProyectoFacada extends IFacadaGenerica {
 

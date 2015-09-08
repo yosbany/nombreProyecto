@@ -8,7 +8,11 @@ import org.hibernate.Session;
 import dominioPais.dominioCorporativo.nucleoBase.dominio.EntidadPersistenteBase;
 import dominioPais.dominioCorporativo.nucleoBase.excepciones.DataBaseException;
 import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.Opcion;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public interface IDaoGenerico {
 
 	public void activarObjeto(EntidadPersistenteBase entidad);

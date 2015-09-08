@@ -5,7 +5,11 @@ import org.springframework.stereotype.Component;
 
 import dominioPais.dominioCorporativo.nombreProyecto.nombreModulo2.datos.dao.INombreModulo2Dao;
 import dominioPais.dominioCorporativo.nombreProyecto.nombreModulo2.datos.das.INombreModulo2Das;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 @Component
 public class NombreModulo2Manager implements INombreModulo2Manager {
 	

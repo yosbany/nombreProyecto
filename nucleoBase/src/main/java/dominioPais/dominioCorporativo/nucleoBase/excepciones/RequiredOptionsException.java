@@ -1,5 +1,9 @@
 package dominioPais.dominioCorporativo.nucleoBase.excepciones;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public class RequiredOptionsException extends SystemException {
 	private static final long serialVersionUID = -119888907918704857L;
 

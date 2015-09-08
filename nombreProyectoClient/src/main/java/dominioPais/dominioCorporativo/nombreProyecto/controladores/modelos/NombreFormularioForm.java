@@ -1,5 +1,9 @@
 package dominioPais.dominioCorporativo.nombreProyecto.controladores.modelos;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public class NombreFormularioForm {
 
 	private String campo1;

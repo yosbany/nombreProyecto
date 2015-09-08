@@ -5,7 +5,11 @@ import org.springframework.stereotype.Component;
 
 import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.datos.dao.IComunNombreProyectoDao;
 import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.datos.das.IComunNombreProyectoDas;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 @Component
 public class ComunNombreProyectoManager implements IComunNombreProyectoManager {
 	

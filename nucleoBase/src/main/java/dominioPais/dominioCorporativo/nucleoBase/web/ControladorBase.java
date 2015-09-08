@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public class ControladorBase implements Serializable {
 
 	private static final long serialVersionUID = 2524446270951076886L;

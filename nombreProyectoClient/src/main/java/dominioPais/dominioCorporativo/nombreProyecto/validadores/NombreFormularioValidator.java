@@ -2,7 +2,11 @@ package dominioPais.dominioCorporativo.nombreProyecto.validadores;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public class NombreFormularioValidator implements Validator {
 
 	public boolean supports(Class<?> arg0) {

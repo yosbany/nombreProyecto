@@ -6,7 +6,9 @@ import dominioPais.dominioCorporativo.nucleoBase.dominio.EntidadPersistenteBase;
 import dominioPais.dominioCorporativo.nucleoBase.excepciones.DataBaseException;
 
 /**
- * Interface IFacadeGeneric.
+ * 
+ * @author Yosbany Tejas
+ *
  */
 public interface IFacadaGenerica {
 

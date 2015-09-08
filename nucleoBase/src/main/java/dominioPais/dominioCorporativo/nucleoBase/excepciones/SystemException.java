@@ -1,5 +1,9 @@
 package dominioPais.dominioCorporativo.nucleoBase.excepciones;
-
+/**
+ * 
+ * @author Yosbany Tejas
+ *
+ */
 public class SystemException extends BaseException {
 	private static final long serialVersionUID = -6184375899704418079L;
 
