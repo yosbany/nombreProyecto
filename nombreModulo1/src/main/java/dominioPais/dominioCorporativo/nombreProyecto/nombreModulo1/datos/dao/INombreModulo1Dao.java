@@ -1,5 +1,7 @@
 package dominioPais.dominioCorporativo.nombreProyecto.nombreModulo1.datos.dao;
 
-public interface INombreModulo1Dao {
+import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.datos.dao.IComunNombreProyectoDao;
+
+public interface INombreModulo1Dao extends IComunNombreProyectoDao {
 
 }

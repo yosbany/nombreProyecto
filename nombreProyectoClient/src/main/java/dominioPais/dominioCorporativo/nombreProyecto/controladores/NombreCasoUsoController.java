@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.dominio.ObjetoEntidad;
-import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.fachada.IComunNombreProyectoFacade;
+import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.fachada.IComunNombreProyectoFacada;
 import dominioPais.dominioCorporativo.nombreProyecto.controladores.modelos.NombreFormularioForm;
 import dominioPais.dominioCorporativo.nombreProyecto.validadores.NombreFormularioValidator;
 import dominioPais.dominioCorporativo.nucleoBase.web.ControladorBase;
@@ -31,14 +31,14 @@ public class NombreCasoUsoController extends ControladorBase {
 	private static final long serialVersionUID = 4941044112653244432L;
 
 	@Autowired
-	private IComunNombreProyectoFacade comunNombreProyectoFacade;
+	private IComunNombreProyectoFacada comunNombreProyectoFacada;
 
-	public IComunNombreProyectoFacade getComunNombreProyectoFacade() {
-		return comunNombreProyectoFacade;
+	public IComunNombreProyectoFacada getComunNombreProyectoFacade() {
+		return comunNombreProyectoFacada;
 	}
 
-	public void setComunNombreProyectoFacade(IComunNombreProyectoFacade comunNombreProyectoFacade) {
-		this.comunNombreProyectoFacade = comunNombreProyectoFacade;
+	public void setComunNombreProyectoFacade(IComunNombreProyectoFacada comunNombreProyectoFacada) {
+		this.comunNombreProyectoFacada = comunNombreProyectoFacada;
 	}
 
 	@InitBinder
@@ -47,8 +47,7 @@ public class NombreCasoUsoController extends ControladorBase {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "nombreOperacionInsertAndEdit.do")
-	public ModelAndView nombreOperacionInsertAndEdit(@Validated NombreFormularioForm nombreFormularioForm,
-			BindingResult result) {
+	public ModelAndView nombreOperacionInsertAndEdit(@Validated NombreFormularioForm nombreFormularioForm, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return new ModelAndView("comun/inicio");
@@ -62,8 +61,7 @@ public class NombreCasoUsoController extends ControladorBase {
 
 	@RequestMapping(method = RequestMethod.GET, value = "nombreOperacionList.do")
 	protected ModelAndView nombreOperacionList() throws ServletException {
-		List<String> list = this.getComunNombreProyectoFacade().listar();
-
+		List<ObjetoEntidad> list = this.getComunNombreProyectoFacade().obtener(ObjetoEntidad.class);
 		return new ModelAndView("comun/inicio", "modelo", list);
 
 	}

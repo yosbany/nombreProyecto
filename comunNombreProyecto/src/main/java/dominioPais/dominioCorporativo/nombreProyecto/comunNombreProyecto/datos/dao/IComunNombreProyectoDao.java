@@ -1,5 +1,7 @@
 package dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.datos.dao;
 
-public interface IComunNombreProyectoDao {
+import dominioPais.dominioCorporativo.nucleoBase.hibernate.IDaoGenerico;
+
+public interface IComunNombreProyectoDao extends IDaoGenerico {
 
 }
