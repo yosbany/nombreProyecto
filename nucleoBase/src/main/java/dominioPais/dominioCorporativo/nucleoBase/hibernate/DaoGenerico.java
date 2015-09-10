@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
 import org.hibernate.NonUniqueResultException;
@@ -13,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.transform.ResultTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dominioPais.dominioCorporativo.nucleoBase.dominio.EntidadPersistenteBase;
@@ -30,7 +29,7 @@ import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.Opcion;
 @Repository
 public class DaoGenerico implements IDaoGenerico {
 
-	@Resource
+	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
@@ -87,7 +86,7 @@ public class DaoGenerico implements IDaoGenerico {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	@Override	
+	@Override
 	public <T> T obtenerUnico(Class<T> claseEntidad, Opcion... parametros) {
 		final Criteria criteria = createCriteria(claseEntidad);
 		if (parametros.length > 0)
@@ -101,7 +100,7 @@ public class DaoGenerico implements IDaoGenerico {
 	}
 
 	@Override
-	public <T> T obtenerPrimero(Class<T> claseEntidad, Opcion... parametros) {		
+	public <T> T obtenerPrimero(Class<T> claseEntidad, Opcion... parametros) {
 		return obtenerUnico(claseEntidad, Opcion.mergeOptions(parametros, Opcion.maxResults(1)));
 	}
 
@@ -118,7 +117,7 @@ public class DaoGenerico implements IDaoGenerico {
 		Criteria crit = createCriteria(claseEntidad);
 
 		HibernateUtils.populateCriteria(crit, parametros);
-		
+
 		List<T> res = crit.list();
 		return (res == null) ? Collections.EMPTY_LIST : res;
 	}
@@ -164,8 +163,10 @@ public class DaoGenerico implements IDaoGenerico {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
 	/**
 	 * Abrir session con un FlushMode pasado por parametro
+	 * 
 	 * @param flushMode
 	 * @return
 	 */
