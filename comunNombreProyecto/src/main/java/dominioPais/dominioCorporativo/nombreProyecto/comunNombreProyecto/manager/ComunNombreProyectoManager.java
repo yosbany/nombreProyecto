@@ -1,17 +1,18 @@
-package dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.negocio;
+package dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.datos.dao.IComunNombreProyectoDao;
 import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.datos.das.IComunNombreProyectoDas;
+import dominioPais.dominioCorporativo.nucleoBase.manager.ManagerGenerico;
 /**
  * 
  * @author Yosbany Tejas
  *
  */
 @Component
-public class ComunNombreProyectoManager implements IComunNombreProyectoManager {
+public class ComunNombreProyectoManager extends ManagerGenerico implements IComunNombreProyectoManager {
 	
 	@Autowired
 	private IComunNombreProyectoDao dao;

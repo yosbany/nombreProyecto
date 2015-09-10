@@ -1,4 +1,4 @@
-package dominioPais.dominioCorporativo.nucleoBase.fachada;
+package dominioPais.dominioCorporativo.nucleoBase.manager;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,11 +17,14 @@ import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.Opcion;
  *
  */
 @Service
-public class FacadaGenerica implements IFacadaGenerica {
+public class ManagerGenerico implements IManagerGenerico {
 
 	@Autowired
 	private IDaoGenerico daoGenerico;
-
+	
+	/**
+	 * Getter and Setter
+	 */
 	public IDaoGenerico getDaoGeneric() {
 		return daoGenerico;
 	}
@@ -47,6 +50,11 @@ public class FacadaGenerica implements IFacadaGenerica {
 			daoGenerico.actualizar(entidad);
 		else
 			daoGenerico.salvar(entidad);
+	}
+	
+	@Override
+	public <T extends EntidadPersistenteBase> List<T> obtener(Class<T> claseEntidad) throws DataBaseException {
+		return daoGenerico.obtener(claseEntidad);
 	}
 
 	@Override
@@ -96,14 +104,11 @@ public class FacadaGenerica implements IFacadaGenerica {
 		return obtenerPorId(claseEntidad, valor);
 	}
 
-	@Override
-	public <T extends EntidadPersistenteBase> List<T> obtener(Class<T> claseEntidad) throws DataBaseException {
-		return daoGenerico.obtener(claseEntidad);
-	}
+	
 
 	@Override
-	public void eliminar(EntidadPersistenteBase entidad, String motivo) {
-		daoGenerico.eliminar(entidad, motivo);
+	public void eliminar(EntidadPersistenteBase entidad) {
+		daoGenerico.eliminar(entidad);
 	}
 
 }

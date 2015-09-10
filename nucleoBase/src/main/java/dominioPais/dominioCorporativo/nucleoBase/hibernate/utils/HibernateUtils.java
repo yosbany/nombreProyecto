@@ -25,6 +25,7 @@ import org.hibernate.type.Type;
 
 import dominioPais.dominioCorporativo.nucleoBase.dominio.EntidadPersistenteBase;
 import dominioPais.dominioCorporativo.nucleoBase.excepciones.DataBaseException;
+
 /**
  * 
  * @author Yosbany Tejas
@@ -196,13 +197,11 @@ public class HibernateUtils {
 		case Opcion.EQ:
 			return Restrictions.eq(opt.nombreAtt, opt.valorAtt);
 		case Opcion.LIKE:
-			// el MatchMode por defecto es ANYWHERE
 			if (opt.valorAtt instanceof String)
 				return Restrictions.like(opt.nombreAtt, opt.valorAtt.toString(), MatchMode.ANYWHERE);
 			else
 				return Restrictions.like(opt.nombreAtt, ((Object[]) opt.valorAtt)[0].toString(), (MatchMode) ((Object[]) opt.valorAtt)[1]);
 		case Opcion.ILIKE:
-			// el MatchMode por defecto es ANYWHERE
 			if (opt.valorAtt instanceof String)
 				return Restrictions.ilike(opt.nombreAtt, opt.valorAtt.toString(), MatchMode.ANYWHERE);
 			else
@@ -227,7 +226,6 @@ public class HibernateUtils {
 	private static void createAttrib(List<Criterion> criterios, Opcion opt) {
 		if (opt.valorAtt == null && (opt.op != Opcion.NNULL && opt.op != Opcion.ISNULL))
 			return;
-
 		final Criterion criterio = createAttrib(opt);
 		if (criterio != null)
 			criterios.add(criterio);
@@ -267,50 +265,19 @@ public class HibernateUtils {
 			} else if (opt.valor == Opcion.CRITERIA) {
 				String[] elementos = opt.nombreAtt.split(",");
 				Criteria subCrit = null;
-				// para poder especificar el alias en el subcriteria, se ponen
-				// los dos valores
-				// separados por coma. esto es necesario debido a la limitacion
-				// de 4 parametros del
-				// objeto Options
 				if (elementos.length > 1)
-					// para permitir especificar el JoinType en las consultas de
-					// criteria. De no
-					// especificarse, se asume el JoinType por defecto
-					// (INNER_JOIN)
 					if (opt.op == null)
 						subCrit = crit.createCriteria(elementos[0], elementos[1]);
 					else
 						subCrit = crit.createCriteria(elementos[0], elementos[1], JoinType.parse(opt.op));
 				else {
-					// para permitir especificar el JoinType en las consultas de
-					// criteria. De no
-					// especificarse, se asume el JoinType por defecto
-					// (INNER_JOIN)
 					if (opt.op == null)
 						subCrit = crit.createCriteria(opt.nombreAtt);
 					else
 						subCrit = crit.createCriteria(opt.nombreAtt, JoinType.parse(opt.op));
 				}
-				// con falso, para no especificar resultTransformer en la
-				// subcriteria. Subcriteria
-				// no puede ser casteado a CriteriaImpl, que es lo necesario
-				// para obtener el
-				// ResultTransformer.
 				populateCriteria(subCrit, (Opcion[]) opt.valorAtt);
 			} else if (opt.valor == Opcion.ALIAS) {
-				// la diferencia entre createAlias y createCriteria es que
-				// createAlias devuelve la
-				// misma criteria que lo crea, mientras que createCriteria
-				// define una subCriteria y
-				// la devuelve. En cuanto a rendimiento es lo mismo, ambos crean
-				// una instancia de
-				// subCriteria, pero createAlias trabaja sobre la criteria
-				// padre, y createCriteria
-				// expone la subcriteria creada para que se le puedan definir
-				// mas criterions
-				// directamente. CreateCriteria tiene mas opciones para
-				// controlar el JoinType,
-				// ademas.
 				crit.createAlias(opt.nombreAtt, opt.valorAtt.toString());
 			} else if (opt.valor == Opcion.AND) {
 				crit.add(createJunction(opt));
@@ -333,8 +300,6 @@ public class HibernateUtils {
 			} else if (opt.valor == Opcion.GROUP_PROJ) {
 				pl.add(Projections.groupProperty(opt.nombreAtt), opt.valorAtt.toString());
 				opProjFlag = true;
-			} else if (opt.valor == Opcion.PAGINATED) {
-				res = opt;
 			} else if (opt.valor == Opcion.TRANSFORMER) {
 				transformer = ResultTransformer.class.cast(opt.valorAtt);
 			} else if (opt.valor == Opcion.GROUP_HINT) {
@@ -349,53 +314,12 @@ public class HibernateUtils {
 		if (!atts.isEmpty())
 			for (Criterion att : atts)
 				crit.add(att);
-		// si es necesario proyectar, se adiciona la lista de proyecciones
-		// ademas se proyecta antes del resulTransformer porque la proyeccion
-		// especifica un nuevo
-		// resulTransformer
 		if (opProjFlag)
 			crit.setProjection(pl);
-
-		// el result transformer por defecto en el criteria es el ROOT_ENTITY,
-		// pero para las
-		// consultas estas es DISTINCT_ROOT_ENTITY.
 		if (transformer != null)
 			crit.setResultTransformer(transformer);
 		else
-			/*
-			 * INFORMACION: Como averigue recientemente (27-09-2010) (aunque era
-			 * bastante obvio) el ResultTransformer DISTINCT_ROOT_ENTITY opera
-			 * sobre el resultado, en vez de interferir en la produccion del
-			 * SQL. Esto significa que para consultas con muchos resultados no
-			 * es eficiente, dado que se obtienen todos los resultados primero y
-			 * luego se filtran en el codigo de la aplicacion para eliminar
-			 * duplicados. Para consultas pequennas la perdida de eficiencia es
-			 * negligible y comparable a la perdida del codigo siquiente. El
-			 * codigo que sigue es el equivalente de especificar el
-			 * resultTransformer mencionado, pero lo que hace es generar la
-			 * sentencia select distinct en el SQL, haciendo que la operacion
-			 * sea mas rapida. Lo dejo aqui por si es necesario cambiarlo en
-			 * algun momento.
-			 * 
-			 * String[] properties =
-			 * getCurrentSession().getSessionFactory().getClassMetadata(
-			 * claseEntidad ).getPropertyNames(); ProjectionList list =
-			 * Projections.projectionList(); for (int i = 0; i <
-			 * properties.length; ++i)
-			 * list.add(Projections.property(properties[i]), properties[i]);
-			 * criteria.setProjection(Projections.distinct(list));*
-			 */
 			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
-		// el paginatedListOptions tiene su propia manera de ordenar los
-		// criterios. Si en alguna
-		// consulta se pasan Options.pag() y Options.asc()/desc(), los segundos
-		// se ignoran en favor
-		// del ordenamiento en la paginacion. En caso que no se pase paginacion,
-		// entonces se ordena
-		// por los criterios especificados en el orden en que se ponen en la
-		// llamada
-		// si res no es null, entonces es paginado
 		if (res == null)
 			for (Object[] ord : orders) {
 				if ((null == ord[0])) {

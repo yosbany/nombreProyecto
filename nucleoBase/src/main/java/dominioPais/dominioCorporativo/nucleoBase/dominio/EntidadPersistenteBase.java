@@ -16,7 +16,7 @@ public abstract class EntidadPersistenteBase implements Serializable {
 
 	protected boolean persist = false;
 
-	protected boolean activo = true;
+	protected boolean habilitado = true;
 	
 	/**
 	 * Para bloquear el objeto en transacciones concurrentes, en los objetos que aplique. Solo lectura
@@ -47,12 +47,12 @@ public abstract class EntidadPersistenteBase implements Serializable {
 		this.persist = persist;
 	}
 
-	public boolean isActivo() {
-		return activo;
+	public boolean isHabilitado() {
+		return habilitado;
 	}
 
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}	
 
 }

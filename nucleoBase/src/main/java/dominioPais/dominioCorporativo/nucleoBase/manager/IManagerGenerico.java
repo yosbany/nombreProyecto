@@ -1,4 +1,4 @@
-package dominioPais.dominioCorporativo.nucleoBase.fachada;
+package dominioPais.dominioCorporativo.nucleoBase.manager;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import dominioPais.dominioCorporativo.nucleoBase.excepciones.DataBaseException;
  * @author Yosbany Tejas
  *
  */
-public interface IFacadaGenerica {
+public interface IManagerGenerico {
 
 	/**
 	 * Salva una instancia de <code>EntidadPersistenteBase</code>. En caso de
@@ -55,6 +55,21 @@ public interface IFacadaGenerica {
 	 */
 	public void salvarActualizar(EntidadPersistenteBase entidad) throws DataBaseException;
 
+	/**
+	 * Obtiene una lista con todas las instancias de una clase. <br/>
+	 * ej.: <code>obtener(Persona.class);</code><br/>
+	 * Ning&uacute;n par&aacute;metro puede ser <code>null</code>.
+	 * 
+	 * @param <T>
+	 *            tipo genérico
+	 * @param claseEntidad
+	 *            Clase de los elementos que se desean obtener.
+	 * @return Lista con todos los elementos de la clase.
+	 * @throws DataBaseException
+	 *             Si alg&uacute;n par&aacute;metro pasado es <code>null</code>.
+	 */
+	public <T extends EntidadPersistenteBase> List<T> obtener(Class<T> claseEntidad) throws DataBaseException;
+	
 	/**
 	 * Obtiene una lista con los elementos coincidentes. <br/>
 	 * ej.: <code>obtener(Persona.class, "usuario.idSesion", "admin");</code>
@@ -165,29 +180,14 @@ public interface IFacadaGenerica {
 	 */
 	public <T extends EntidadPersistenteBase> T obtenerPorId(Class<T> claseEntidad, Integer valor, boolean proxy) throws DataBaseException;
 
-	/**
-	 * Obtiene una lista con todas las instancias de una clase. <br/>
-	 * ej.: <code>obtener(Persona.class);</code><br/>
-	 * Ning&uacute;n par&aacute;metro puede ser <code>null</code>.
-	 * 
-	 * @param <T>
-	 *            tipo genérico
-	 * @param claseEntidad
-	 *            Clase de los elementos que se desean obtener.
-	 * @return Lista con todos los elementos de la clase.
-	 * @throws DataBaseException
-	 *             Si alg&uacute;n par&aacute;metro pasado es <code>null</code>.
-	 */
-	public <T extends EntidadPersistenteBase> List<T> obtener(Class<T> claseEntidad) throws DataBaseException;
+	
 
 	/**
 	 * Eliminar.
 	 * 
 	 * @param entidad
 	 *            entidad
-	 * @param motivo
-	 *            motivo
 	 */
-	public void eliminar(EntidadPersistenteBase entidad, String motivo);
+	public void eliminar(EntidadPersistenteBase entidad);
 
 }

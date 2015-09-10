@@ -1,14 +1,27 @@
 package dominioPais.dominioCorporativo.nucleoBase.hibernate;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.hibernate.Criteria;
+import org.hibernate.FlushMode;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 import dominioPais.dominioCorporativo.nucleoBase.dominio.EntidadPersistenteBase;
 import dominioPais.dominioCorporativo.nucleoBase.excepciones.DataBaseException;
+import dominioPais.dominioCorporativo.nucleoBase.excepciones.NoUniqueResultException;
+import dominioPais.dominioCorporativo.nucleoBase.hibernate.filtros.Filtros;
+import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.HibernateUtils;
 import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.Opcion;
+
 /**
  * 
  * @author Yosbany Tejas
@@ -17,124 +30,122 @@ import dominioPais.dominioCorporativo.nucleoBase.hibernate.utils.Opcion;
 @Repository
 public class DaoGenerico implements IDaoGenerico {
 
-	@Override
-	public void activarObjeto(EntidadPersistenteBase entidad) {
-		// TODO Auto-generated method stub
+	@Resource
+	private SessionFactory sessionFactory;
 
+	@Override
+	public void habilitarObjeto(EntidadPersistenteBase entidad) {
+		entidad.setHabilitado(true);
+		actualizar(entidad);
 	}
 
 	@Override
-	public void desactivarObjeto(EntidadPersistenteBase entidad) {
-		// TODO Auto-generated method stub
-
+	public void desabilitarObjeto(EntidadPersistenteBase entidad) {
+		entidad.setHabilitado(false);
+		actualizar(entidad);
 	}
 
 	@Override
 	public <T> int contarElementos(Class<T> claseEntidad, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		final Criteria criteria = createCriteria(claseEntidad);
+		criteria.setProjection(Projections.rowCount());
+		if (parametros.length > 0)
+			HibernateUtils.populateCriteria(criteria, parametros);
 
-	@Override
-	public <T> int contarElementos(Class<T> claseEntidad, Integer filtros, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (((Long) criteria.uniqueResult())).intValue();
 	}
 
 	@Override
 	public void salvar(EntidadPersistenteBase entidad) throws DataBaseException {
-		// TODO Auto-generated method stub
-
+		if (entidad == null)
+			throw new DataBaseException("La entidad a salvar no puede ser nula.");
+		this.getCurrentSession().save(entidad);
 	}
 
 	@Override
 	public void actualizar(EntidadPersistenteBase entidad) throws DataBaseException {
-		// TODO Auto-generated method stub
+		if (entidad == null)
+			throw new DataBaseException("La entidad a actualizar no puede ser nula.");
+		this.getCurrentSession().update(entidad);
+	}
+
+	@Override
+	public void eliminar(EntidadPersistenteBase entidad) throws DataBaseException {
+		if (entidad == null)
+			throw new DataBaseException("La entidad a eliminar no puede ser nula.");
+		this.getCurrentSession().delete(entidad);
 
 	}
 
 	@Override
-	public void eliminar(EntidadPersistenteBase entidad, String motivo) throws DataBaseException {
-		// TODO Auto-generated method stub
-
+	public <T extends EntidadPersistenteBase> void eliminar(Collection<T> coleccion) throws DataBaseException {
+		if (coleccion == null)
+			throw new DataBaseException("La coleccion a eliminar no puede ser nula.");
+		for (EntidadPersistenteBase name : coleccion) {
+			this.eliminar(name);
+		}
 	}
 
-	@Override
-	public void ocultar(EntidadPersistenteBase entidad, String motivo) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public <T extends EntidadPersistenteBase> void eliminar(Collection<T> coleccion, String motivo) throws DataBaseException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
+	@SuppressWarnings({ "unchecked" })
+	@Override	
 	public <T> T obtenerUnico(Class<T> claseEntidad, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return null;
+		final Criteria criteria = createCriteria(claseEntidad);
+		if (parametros.length > 0)
+			HibernateUtils.populateCriteria(criteria, parametros);
+
+		try {
+			return (T) criteria.uniqueResult();
+		} catch (NonUniqueResultException e) {
+			throw new NoUniqueResultException(e, claseEntidad, criteria, parametros);
+		}
 	}
 
 	@Override
-	public <T> T obtenerUnico(Class<T> claseEntidad, Integer filtros, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return null;
+	public <T> T obtenerPrimero(Class<T> claseEntidad, Opcion... parametros) {		
+		return obtenerUnico(claseEntidad, Opcion.mergeOptions(parametros, Opcion.maxResults(1)));
 	}
 
-	@Override
-	public <T> T obtenerPrimero(Class<T> claseEntidad, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> T obtenerPrimero(Class<T> claseEntidad, Integer filtros, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> List<T> obtener(Class<T> claseEntidad, List<Opcion> parametros) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> obtener(Class<T> claseEntidad, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		if (claseEntidad == null)
+			throw new DataBaseException("La clase entidad que se desea cargar no puede ser nula.");
 
-	@Override
-	public <T> List<T> obtener(Class<T> claseEntidad, Integer filtros, Opcion... parametros) {
-		// TODO Auto-generated method stub
-		return null;
+		if (parametros.length == 0) {
+			Criteria criteria = createCriteria(claseEntidad);
+			return criteria.list();
+		}
+		Criteria crit = createCriteria(claseEntidad);
+
+		HibernateUtils.populateCriteria(crit, parametros);
+		
+		List<T> res = crit.list();
+		return (res == null) ? Collections.EMPTY_LIST : res;
 	}
 
 	@Override
 	public <T> T obtenerPorId(Class<T> claseEntidad, Integer valor) throws DataBaseException {
-		// TODO Auto-generated method stub
-		return null;
+		if (claseEntidad == null)
+			throw new DataBaseException("La clase entidad que se desea cargar no puede ser nula.");
+		if (valor == null)
+			throw new DataBaseException("La carga por el atributo id no admite un valor nulo.");
+
+		return (T) getCurrentSession().get(claseEntidad, valor);
 	}
 
 	@Override
-	public void discardChanges(Object object) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void detachObject(Object object) {
-		// TODO Auto-generated method stub
-
+	public void descartarCambios(Object object) {
+		if (object != null) {
+			getCurrentSession().refresh(object);
+		}
 	}
 
 	@Override
 	public Session openSession() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = getSessionFactory().openSession();
+		session.setFlushMode(FlushMode.MANUAL);
+		enableFilters(session);
+		return session;
 	}
 
 	@Override
@@ -143,4 +154,71 @@ public class DaoGenerico implements IDaoGenerico {
 		return null;
 	}
 
+	/**
+	 * Getter and Setter
+	 */
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	/**
+	 * Abrir session con un FlushMode pasado por parametro
+	 * @param flushMode
+	 * @return
+	 */
+	protected Session openSession(FlushMode flushMode) {
+		Session session = getSessionFactory().openSession();
+		session.setFlushMode(flushMode);
+		enableFilters(session);
+		return session;
+	}
+
+	/**
+	 * Creando criteria
+	 */
+
+	protected Criteria createCriteria(Class<? extends Object> clase, String alias) {
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(clase, alias);
+		criteria.setFlushMode(FlushMode.MANUAL);
+		return criteria;
+	}
+
+	protected Criteria createCriteria(Class<? extends Object> clase, ResultTransformer transformer) {
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(clase).setResultTransformer(transformer);
+		criteria.setFlushMode(FlushMode.MANUAL);
+		return criteria;
+	}
+
+	protected Criteria createCriteria(Class<? extends Object> clase, String alias, ResultTransformer transformer) {
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(clase, alias).setResultTransformer(transformer);
+		criteria.setFlushMode(FlushMode.MANUAL);
+		return criteria;
+	}
+
+	protected Criteria createCriteria(Class<? extends Object> clase) {
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(clase);
+		criteria.setFlushMode(FlushMode.MANUAL);
+		return criteria;
+	}
+
+	protected Criteria createCriteria(String path) {
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(path);
+		criteria.setFlushMode(FlushMode.MANUAL);
+		return criteria;
+	}
+
+	/**
+	 * Habilitar y desabilitar filtro para la session de hibernate
+	 */
+
+	public void enableFilters(Session session) {
+		session.enableFilter(Filtros.FILTRO_CARGAR);
+	}
+
+	public void desabilidarFiltros(Session session) {
+		session.disableFilter(Filtros.FILTRO_CARGAR);
+	}
 }

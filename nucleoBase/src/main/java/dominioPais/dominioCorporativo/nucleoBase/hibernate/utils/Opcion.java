@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
 /**
  * 
  * @author Yosbany Tejas
@@ -19,7 +20,7 @@ public final class Opcion {
 	public final String nombreAtt;
 	public final int valor;
 	public final Integer op;
-	
+
 	public final static int ORDER_ASC = 2;
 	public final static int ORDER_DESC = 3;
 
@@ -75,23 +76,18 @@ public final class Opcion {
 	public final static int MAX_RESULTS = 123;
 
 	private static final Opcion NOOP_OPTION = new Opcion(NOOP, NOOP, null, null);
-	
-	
+
 	private Opcion(Integer op, int valor, String nombreAtt, Object valorAtt) {
 		this.nombreAtt = nombreAtt;
 		this.valorAtt = valorAtt;
 		this.valor = valor;
-
-		// chequeo de nulo del parametro de consulta. Si se pasa un nulo y no es para una
-		// comparacion especifica de nulos, se asume que es que el caracter debia haber sido
-		// chequeado y no lo fue, asi que se omite el parametro en la consulta (seteando la
-		// operacion a NOOP)
+		
 		if (valor == ATT && valorAtt == null && op != ISNULL && op != NNULL)
 			this.op = NOOP;
 		else
 			this.op = op;
 	}
-	
+
 	public static Opcion in(String nombreAtt, Object[] valorAtt) {
 		if (nombreAtt != null && valorAtt != null) {
 			if (valorAtt.length == 1)
@@ -125,7 +121,7 @@ public final class Opcion {
 		else
 			return NOOP_OPTION;
 	}
-	
+
 	public static Opcion ieq(String nombreAtt, Object valorAtt) {
 		if (StringUtils.hasText(nombreAtt) && valorAtt != null)
 			return new Opcion(IEQ, ATT, nombreAtt, valorAtt);
@@ -139,6 +135,22 @@ public final class Opcion {
 		else
 			return NOOP_OPTION;
 	}
-
+	
+	public static Opcion maxResults(Integer maxResults) {
+		if (maxResults != null)
+			return new Opcion(NOOP, MAX_RESULTS, null, maxResults);
+		else
+			return NOOP_OPTION;
+	}
+	
+	public static Opcion[] mergeOptions(Opcion[] baseOptions, Opcion... optionsToMerge) {
+		if (optionsToMerge.length > 0) {
+			final Opcion[] r = new Opcion[baseOptions.length + optionsToMerge.length];
+			System.arraycopy(baseOptions, 0, r, 0, baseOptions.length);
+			System.arraycopy(optionsToMerge, 0, r, baseOptions.length, optionsToMerge.length);
+			return r;
+		} else
+			return baseOptions;
+	}
 
 }

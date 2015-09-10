@@ -65,7 +65,7 @@ public class NombreCasoUsoController extends ControladorBase {
 
 	@RequestMapping(method = RequestMethod.GET, value = "nombreOperacionList.do")
 	protected ModelAndView nombreOperacionList() throws ServletException {
-		List<ObjetoEntidad> list = this.getComunNombreProyectoFacade().obtener(ObjetoEntidad.class);
+		List<ObjetoEntidad> list = null;
 		return new ModelAndView("comun/inicio", "modelo", list);
 
 	}
