@@ -4,14 +4,14 @@
 	<groupId>dominioPais.dominioCorporativo.nombreProyecto</groupId>
 	<artifactId>nombreModulo2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<dependencies>
 		<dependency>
 			<groupId>
-  			dominioPais.dominioCorporativo.nombreProyecto
-  		</groupId>
-			<artifactId>comunNombreProyecto</artifactId>
+				dominioPais.dominioCorporativo.nombreProyecto
+			</groupId>
+			<artifactId>nucleo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-	
 </project>

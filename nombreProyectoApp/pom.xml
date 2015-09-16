@@ -27,14 +27,14 @@
 			<groupId>
 				dominioPais.dominioCorporativo.nombreProyecto
 			</groupId>
-			<artifactId>comunNombreProyecto</artifactId>
+			<artifactId>nucleo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>
 				dominioPais.dominioCorporativo.nombreProyecto
 			</groupId>
-			<artifactId>nucleoBase</artifactId>
+			<artifactId>comun</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
