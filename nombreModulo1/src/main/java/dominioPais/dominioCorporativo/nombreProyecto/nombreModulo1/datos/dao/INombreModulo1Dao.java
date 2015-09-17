@@ -1,6 +1,6 @@
 package dominioPais.dominioCorporativo.nombreProyecto.nombreModulo1.datos.dao;
 
-import dominioPais.dominioCorporativo.nucleoBase.hibernate.IDaoGenerico;
+import dominioPais.dominioCorporativo.nucleo.hibernate.IDaoGenerico;
 
 /***
  * 

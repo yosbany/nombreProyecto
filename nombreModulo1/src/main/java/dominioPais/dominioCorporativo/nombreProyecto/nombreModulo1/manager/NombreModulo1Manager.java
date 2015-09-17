@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import dominioPais.dominioCorporativo.nombreProyecto.nombreModulo1.datos.dao.INombreModulo1Dao;
 import dominioPais.dominioCorporativo.nombreProyecto.nombreModulo1.datos.das.INombreModulo1Das;
-import dominioPais.dominioCorporativo.nucleoBase.manager.ManagerGenerico;
+import dominioPais.dominioCorporativo.nucleo.manager.ManagerGenerico;
 /**
  * 
  * @author Yosbany Tejas

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.dominio.ObjetoEntidad;
-import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.fachada.IComunNombreProyectoFacada;
 import dominioPais.dominioCorporativo.nombreProyecto.controladores.modelos.NombreFormularioForm;
 import dominioPais.dominioCorporativo.nombreProyecto.validadores.NombreFormularioValidator;
-import dominioPais.dominioCorporativo.nucleoBase.web.ControladorBase;
+import dominioPais.dominioCorporativo.nucleo.web.ControladorBase;
+
 /**
  * 
  * @author Yosbany Tejas
@@ -33,17 +32,6 @@ import dominioPais.dominioCorporativo.nucleoBase.web.ControladorBase;
 public class NombreCasoUsoController extends ControladorBase {
 
 	private static final long serialVersionUID = 4941044112653244432L;
-
-	@Autowired
-	private IComunNombreProyectoFacada comunNombreProyectoFacada;
-
-	public IComunNombreProyectoFacada getComunNombreProyectoFacade() {
-		return comunNombreProyectoFacada;
-	}
-
-	public void setComunNombreProyectoFacade(IComunNombreProyectoFacada comunNombreProyectoFacada) {
-		this.comunNombreProyectoFacada = comunNombreProyectoFacada;
-	}
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {

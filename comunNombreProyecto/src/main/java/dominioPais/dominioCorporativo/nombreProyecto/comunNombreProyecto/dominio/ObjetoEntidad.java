@@ -2,7 +2,7 @@ package dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.domini
 
 import org.hibernate.annotations.Filter;
 
-import dominioPais.dominioCorporativo.nucleoBase.dominio.EntidadPersistenteBase;
+import dominioPais.dominioCorporativo.nucleo.dominio.EntidadPersistenteBase;
 
 /**
  * Objeto de entidad que se mapea con l base de datos.

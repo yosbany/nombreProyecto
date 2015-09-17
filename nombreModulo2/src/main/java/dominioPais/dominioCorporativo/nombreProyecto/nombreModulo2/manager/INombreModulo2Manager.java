@@ -1,6 +1,6 @@
 package dominioPais.dominioCorporativo.nombreProyecto.nombreModulo2.manager;
 
-import dominioPais.dominioCorporativo.nucleoBase.manager.IManagerGenerico;
+import dominioPais.dominioCorporativo.nucleo.manager.IManagerGenerico;
 
 /**
  * 

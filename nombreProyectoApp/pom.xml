@@ -27,13 +27,6 @@
 			<groupId>
 				dominioPais.dominioCorporativo.nombreProyecto
 			</groupId>
-			<artifactId>nucleo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>
-				dominioPais.dominioCorporativo.nombreProyecto
-			</groupId>
 			<artifactId>comun</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

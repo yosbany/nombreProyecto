@@ -2,7 +2,7 @@ package dominioPais.dominioCorporativo.nombreProyecto.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import dominioPais.dominioCorporativo.nucleoBase.config.NucleoBaseConfig;
+import dominioPais.dominioCorporativo.nucleo.config.NucleoConfig;
 
 /**
  * 
@@ -13,7 +13,7 @@ public class NombreProyectoWebAppInitializer extends AbstractAnnotationConfigDis
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { NucleoBaseConfig.class };
+		return new Class<?>[] { NucleoConfig.class };
 	}
 
 	@Override

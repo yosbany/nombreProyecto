@@ -1,6 +1,9 @@
 package dominioPais.dominioCorporativo.nombreProyecto.nombreModulo1.fachada;
 
 import org.springframework.stereotype.Service;
+
+import dominioPais.dominioCorporativo.nombreProyecto.comunNombreProyecto.interfaces.INombreModulo1Facada;
+
 /**
  * 
  * @author Yosbany Tejas

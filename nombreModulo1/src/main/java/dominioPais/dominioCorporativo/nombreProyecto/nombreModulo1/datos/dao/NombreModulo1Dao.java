@@ -2,7 +2,7 @@ package dominioPais.dominioCorporativo.nombreProyecto.nombreModulo1.datos.dao;
 
 import org.springframework.stereotype.Repository;
 
-import dominioPais.dominioCorporativo.nucleoBase.hibernate.DaoGenerico;
+import dominioPais.dominioCorporativo.nucleo.hibernate.DaoGenerico;
 
 /***
  * 

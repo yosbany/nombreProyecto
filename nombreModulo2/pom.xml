@@ -10,7 +10,7 @@
 			<groupId>
 				dominioPais.dominioCorporativo.nombreProyecto
 			</groupId>
-			<artifactId>nucleo</artifactId>
+			<artifactId>comun</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

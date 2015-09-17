@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dominioPais.dominioCorporativo.nucleoBase.web.ControladorBase;
+import dominioPais.dominioCorporativo.nucleo.web.ControladorBase;
 /**
  * 
  * @author Yosbany Tejas
